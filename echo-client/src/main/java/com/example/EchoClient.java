@@ -12,6 +12,8 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 
 public final class EchoClient {
 	private static final Logger log = Loggers.getLogger(EchoClient.class);
@@ -40,7 +42,8 @@ public final class EchoClient {
 					.handler(new ChannelInitializer<SocketChannel>() {
 						@Override
 						protected void initChannel(SocketChannel ch) throws Exception {
-							ch.pipeline().addLast(new EchoClientHandler());
+							ch.pipeline().addLast(new LoggingHandler(LogLevel.INFO))
+									.addLast(new EchoClientHandler());
 						}
 					});
 			ChannelFuture f = b.connect().sync();
