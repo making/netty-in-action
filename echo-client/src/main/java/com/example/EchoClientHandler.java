@@ -24,8 +24,17 @@ public final class EchoClientHandler extends SimpleChannelInboundHandler<ByteBuf
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
 		// When notified that the channel is active, sends a message
-		ctx.writeAndFlush(
-				Unpooled.copiedBuffer("Netty rocks!", Charset.defaultCharset()));
+		ctx.channel()
+				.writeAndFlush(
+						Unpooled.copiedBuffer("Netty rocks!", Charset.defaultCharset()))
+				.addListener(future -> {
+					if (future.isSuccess()) {
+						log.info("Write successful");
+					}
+					else {
+						log.error("Write error", future.cause());
+					}
+				});
 	}
 
 	/**
