@@ -23,8 +23,6 @@ public final class EchoClient {
 	public static void main(String[] args) throws Exception {
 		EchoClient echoClient = new EchoClient("localhost", 33750);
 		echoClient.start();
-		echoClient.start();
-		echoClient.start();
 	}
 
 	public EchoClient(String hostname, int port) {
