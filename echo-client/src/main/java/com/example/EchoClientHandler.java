@@ -32,7 +32,7 @@ public final class EchoClientHandler extends SimpleChannelInboundHandler<ByteBuf
 					else {
 						Throwable cause = future.cause();
 						log.error("Write error", cause);
-						ctx.fireExceptionCaught(cause);
+						ctx.close();
 					}
 				});
 	}
